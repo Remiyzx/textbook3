@@ -19,13 +19,54 @@
             overflow-y: scroll; 
         }
 
-        /* Adjusted Navigation Heights & Spacing */
+        /* Fixed Single-Row Navigation Heights & Spacing */
         header {
-            height: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            height: 105px;
+            box-shadow: 0 4px 15px rgba(161, 98, 7, 0.15);
         }
         main {
-            padding-top: 220px; 
+            padding-top: 135px; 
             min-height: 100vh;
+        }
+
+        /* Single-Row Navigation Container */
+        .nav-container {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+            background-color: #facc15; /* yellow-400 */
+        }
+
+        .nav-btn {
+            flex: 1;
+            white-space: nowrap;
+            font-size: clamp(14px, 1.15vw, 19px);
+            padding: 0.55rem 0.25rem;
+            text-align: center;
+            border: 1px solid transparent;
+            font-weight: 700;
+            color: #713f12;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border-right: 1px solid rgba(161, 98, 7, 0.2);
+        }
+        .nav-btn:last-child {
+            border-right: none;
+        }
+        .nav-btn:hover:not(.active) {
+            background-color: #eab308;
+            color: #422006;
+        }
+        .nav-btn.active {
+            background-color: #a16207; /* yellow-700 */
+            color: white;
+            border-color: #fef08a;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.25);
         }
 
         /* Interactive Text Toggle Styles for Texts */
@@ -66,18 +107,37 @@
             color: #9ca3af; 
         }
 
-        /* Soft, Natural Yellow Vocabulary Highlight Box (No Shadow) */
+        /* Pure Bold & Color Highlight for Vocabulary Tables */
         .vocab-hl {
-            background-color: #fef9c3; /* gentle light yellow */
-            color: #854d0e; /* yellow-800 */
-            font-weight: 700;
-            padding: 0.05em 0.35em;
-            border: 1.5px solid #fde047; /* soft yellow-300 border */
-            border-radius: 6px;
+            color: #b45309; 
+            font-weight: 800;
+            display: inline;
+        }
+
+        /* Realistic Fluorescent Yellow Highlighter for Dialogue Texts (No Outline / No Border) */
+        .pinyin-text-line .vocab-hl {
+            background-color: #fde047; /* bright highlighter yellow */
+            color: #713f12; /* high-contrast dark text */
+            font-weight: 800;
+            padding: 0.1em 0.4em;
+            border-radius: 4px;
+            border: none;
+            box-shadow: none;
             display: inline-block;
-            line-height: 1.2;
-            box-shadow: none; /* No shadow */
-            margin: 0 0.1em;
+            line-height: 1.25;
+            margin: 0 0.15em;
+        }
+
+        /* Theme-Colored Example Sentences */
+        .theme-example-sentence {
+            color: #854d0e; /* Elegant dark gold/yellow theme */
+            font-weight: 600;
+        }
+        .theme-example-sentence .vocab-hl {
+            color: #b45309;
+            font-weight: 800;
+            text-decoration: underline;
+            text-underline-offset: 4px;
         }
 
         /* Exercise Blanks */
@@ -116,7 +176,7 @@
             opacity: 0;
             overflow: hidden;
             transition: all 0.3s ease;
-            color: #fde047; /* Bright yellow for high visibility on dark background */
+            color: #fde047; /* Bright yellow for high visibility */
             font-size: 24px;
             font-weight: 700;
         }
@@ -140,24 +200,6 @@
 
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Navigation Button Styles */
-        .nav-btn {
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            font-size: 20px;
-            color: #713f12; 
-        }
-        .nav-btn.active {
-            background-color: #a16207; 
-            color: white;
-            box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.3);
-            border-color: #fef08a; 
-        }
-        .nav-btn:hover:not(.active) {
-            background-color: #eab308; 
-            color: #422006;
         }
         
         /* Pronunciation Grid Item Styles */
@@ -207,38 +249,33 @@
 </head>
 <body class="antialiased">
 
-    <!-- Top Fixed Navigation -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#eab308] text-[#422006] shadow-xl border-b-6 border-[#a16207]">
-        <div class="flex justify-between items-center px-10 py-3 border-b border-[#ca8a04]">
-            <h1 class="text-3xl font-extrabold tracking-wide">Lesson 3 Tā shì nǎ guó rén</h1>
-            <h2 class="text-2xl font-bold text-[#713f12]">Teaching Notes</h2>
+    <!-- Top Fixed Single-Row Navigation -->
+    <header class="bg-[#eab308] border-b-4 border-[#a16207]">
+        <div class="flex justify-between items-center px-8 py-2 border-b border-[#ca8a04]">
+            <h1 class="text-2xl font-extrabold tracking-wide text-[#422006]">Lesson 3 Tā shì nǎ guó rén</h1>
+            <h2 class="text-xl font-bold text-[#713f12]">Teaching Notes</h2>
         </div>
         
-        <nav class="flex flex-col items-center justify-center gap-2 bg-[#facc15] p-3 shadow-md w-full overflow-hidden">
-            <!-- Row 1 Navigation -->
-            <div class="flex flex-wrap justify-center gap-3 w-full">
-                <button onclick="switchTab('agenda')" class="nav-btn active px-4 py-1 rounded-xl border-2 border-transparent font-bold">Title & Agenda</button>
-                <button onclick="switchTab('pronunciation')" class="nav-btn px-4 py-1 rounded-xl border-2 border-transparent font-bold">Pronunciation Drills</button>
-                <button onclick="switchTab('theme-1')" class="nav-btn px-4 py-1 rounded-xl border-2 border-transparent font-bold">Identity & Nationality</button>
-                <button onclick="switchTab('text-1')" class="nav-btn px-4 py-1 rounded-xl border-2 border-transparent font-bold">Text 1</button>
-            </div>
-            <!-- Row 2 Navigation -->
-            <div class="flex flex-wrap justify-center gap-3 w-full">
-                <button onclick="switchTab('theme-2')" class="nav-btn px-4 py-1 rounded-xl border-2 border-transparent font-bold">Introducing People</button>
-                <button onclick="switchTab('text-2')" class="nav-btn px-4 py-1 rounded-xl border-2 border-transparent font-bold">Text 2</button>
-                <button onclick="switchTab('exercises')" class="nav-btn px-4 py-1 rounded-xl border-2 border-transparent font-bold">Exercises</button>
-                <button onclick="switchTab('wrap-up')" class="nav-btn px-4 py-1 rounded-xl border-2 border-transparent font-bold">Wrap-up</button>
-            </div>
+        <!-- Strict Single-Row Nav Bar -->
+        <nav class="nav-container max-w-[1700px] mx-auto">
+            <button onclick="switchTab('agenda')" class="nav-btn active">Overview & Roadmap</button>
+            <button onclick="switchTab('pronunciation')" class="nav-btn">Pronunciation Drills</button>
+            <button onclick="switchTab('theme-1')" class="nav-btn">Identity & Nationality</button>
+            <button onclick="switchTab('text-1')" class="nav-btn">Text 1</button>
+            <button onclick="switchTab('theme-2')" class="nav-btn">Introducing People</button>
+            <button onclick="switchTab('text-2')" class="nav-btn">Text 2</button>
+            <button onclick="switchTab('exercises')" class="nav-btn">Exercises</button>
+            <button onclick="switchTab('wrap-up')" class="nav-btn">Wrap-up</button>
         </nav>
     </header>
 
     <main class="px-10 max-w-[1600px] mx-auto">
 
-        <!-- 1. TITLE & AGENDA -->
+        <!-- 1. OVERVIEW & ROADMAP -->
         <section id="agenda" class="page-section active pb-16">
             <div class="bg-white rounded-[32px] p-12 shadow-xl border-t-[12px] border-[#eab308]">
                 <div class="flex justify-between items-center mb-10">
-                    <h2 class="text-6xl font-extrabold text-[#713f12]">Title & Agenda</h2>
+                    <h2 class="text-6xl font-extrabold text-[#713f12]">Lesson Overview & Roadmap</h2>
                     <span class="bg-[#fef08a] text-[#854d0e] px-6 py-3 rounded-full text-2xl font-bold border-2 border-[#eab308]">Textbook Pg 27-40</span>
                 </div>
                 
@@ -427,7 +464,7 @@
                         </div>
                     </div>
 
-                    <!-- Pg 36 Rules inserted here -->
+                    <!-- Pg 36 Tone Sandhi Rules -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
                         <div class="bg-[#fefce8] p-8 rounded-2xl border-l-[8px] border-[#ca8a04] shadow-sm flex flex-col justify-center">
                             <p class="text-4xl font-bold text-[#854d0e] mb-4">🎵 Third-tone sandhi <span class="text-2xl text-gray-500">(Pg 36)</span></p>
@@ -564,8 +601,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">tā</td>
                             <td class="p-6 text-gray-700">she, her <span class="inline-block text-4xl ml-2 bg-yellow-100 p-1 rounded-xl">👩</span></td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">tā</span> gēge</div>
-                                <div><span class="vocab-hl text-2xl">Tā</span> shì nǎ guó rén?</div>
+                                <div class="mb-2"><span class="vocab-hl">tā</span> gēge</div>
+                                <div class="theme-example-sentence"><span class="vocab-hl">Tā</span> yě hěn máng.</div>
                             </td>
                         </tr>
                         <!-- Tā Note -->
@@ -579,8 +616,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">shì</td>
                             <td class="p-6 text-gray-700">to be (is/am/are) ➡️</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">shì</span> lǎoshī</div>
-                                <div>Nà <span class="vocab-hl text-2xl">shì</span> wǒmen lǎoshī.</div>
+                                <div class="mb-2">bú <span class="vocab-hl">shì</span> lǎoshī</div>
+                                <div class="theme-example-sentence">Zhè <span class="vocab-hl">shì</span> wǒ gēge.</div>
                             </td>
                         </tr>
                         <tr class="hover:bg-yellow-50 transition-colors">
@@ -588,8 +625,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">nǎ</td>
                             <td class="p-6 text-gray-700">which ❓</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">nǎ</span> guó</div>
-                                <div>Tā shì <span class="vocab-hl text-2xl">nǎ</span> guó rén?</div>
+                                <div class="mb-2"><span class="vocab-hl">nǎ</span> guó</div>
+                                <div class="theme-example-sentence">Nǐ shì <span class="vocab-hl">nǎ</span> guó rén?</div>
                             </td>
                         </tr>
                         <tr class="bg-[#fefce8] hover:bg-yellow-100 transition-colors">
@@ -597,8 +634,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">guó</td>
                             <td class="p-6 text-gray-700">country, nation 🗺️</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2">nǎ <span class="vocab-hl text-2xl">guó</span> rén</div>
-                                <div>Tā shì nǎ <span class="vocab-hl text-2xl">guó</span> rén?</div>
+                                <div class="mb-2">Měi<span class="vocab-hl">guó</span> rén</div>
+                                <div class="theme-example-sentence">Wǒ shì Zhōng<span class="vocab-hl">guó</span> rén.</div>
                             </td>
                         </tr>
                         <tr class="hover:bg-yellow-50 transition-colors">
@@ -606,8 +643,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">rén</td>
                             <td class="p-6 text-gray-700">people, person 🚶</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2">Zhōngguó <span class="vocab-hl text-2xl">rén</span></div>
-                                <div>Tā shì Zhōngguó <span class="vocab-hl text-2xl">rén</span>.</div>
+                                <div class="mb-2">hǎo <span class="vocab-hl">rén</span></div>
+                                <div class="theme-example-sentence">Tāmen dōu shì Zhōngguó <span class="vocab-hl">rén</span>.</div>
                             </td>
                         </tr>
                         <tr class="bg-[#fefce8] hover:bg-yellow-100 transition-colors">
@@ -615,8 +652,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">nà</td>
                             <td class="p-6 text-gray-700">that 👉</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">nà</span> shì</div>
-                                <div><span class="vocab-hl text-2xl">Nà</span> shì wǒmen lǎoshī.</div>
+                                <div class="mb-2"><span class="vocab-hl">nà</span> shì shénme</div>
+                                <div class="theme-example-sentence"><span class="vocab-hl">Nà</span> bú shì wǒ māma.</div>
                             </td>
                         </tr>
                         <tr class="hover:bg-yellow-50 transition-colors">
@@ -624,8 +661,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">shéi</td>
                             <td class="p-6 text-gray-700">who, whom 👤</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2">shì <span class="vocab-hl text-2xl">shéi</span></div>
-                                <div>Nà shì <span class="vocab-hl text-2xl">shéi</span>?</div>
+                                <div class="mb-2"><span class="vocab-hl">shéi</span> de péngyou</div>
+                                <div class="theme-example-sentence"><span class="vocab-hl">Shéi</span> shì Měiguó rén?</div>
                             </td>
                         </tr>
                         <tr class="bg-[#fefce8] hover:bg-yellow-100 transition-colors">
@@ -633,8 +670,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">lǎoshī</td>
                             <td class="p-6 text-gray-700">teacher 🧑‍🏫</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2">wǒmen <span class="vocab-hl text-2xl">lǎoshī</span></div>
-                                <div>Nà shì wǒmen <span class="vocab-hl text-2xl">lǎoshī</span>.</div>
+                                <div class="mb-2">Chén <span class="vocab-hl">lǎoshī</span></div>
+                                <div class="theme-example-sentence">Wǒmen <span class="vocab-hl">lǎoshī</span> bù máng.</div>
                             </td>
                         </tr>
                         <tr class="hover:bg-yellow-50 transition-colors">
@@ -642,8 +679,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">dōu</td>
                             <td class="p-6 text-gray-700">both, all 🔄</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">dōu</span> shì</div>
-                                <div>Wǒmen lǎoshī <span class="vocab-hl text-2xl">dōu</span> shì Zhōngguó rén.</div>
+                                <div class="mb-2"><span class="vocab-hl">dōu</span> hǎo</div>
+                                <div class="theme-example-sentence">Wǒmen <span class="vocab-hl">dōu</span> hē kāfēi.</div>
                             </td>
                         </tr>
                         <tr class="bg-[#fefce8] hover:bg-yellow-100 transition-colors">
@@ -651,30 +688,29 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">Zhōngguó</td>
                             <td class="p-6 text-gray-700">China 🇨🇳</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">Zhōngguó</span> rén</div>
-                                <div>Tā shì <span class="vocab-hl text-2xl">Zhōngguó</span> rén.</div>
+                                <div class="mb-2">qù <span class="vocab-hl">Zhōngguó</span></div>
+                                <div class="theme-example-sentence">Tā māma shì <span class="vocab-hl">Zhōngguó</span> rén.</div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Grammar Section -->
-            <div class="p-10 bg-white rounded-[32px] shadow-xl border-4 border-[#fef08a]">
-                <h3 class="text-5xl font-extrabold text-[#854d0e] mb-8 border-b-2 border-yellow-200 pb-3">Grammar & Culture Focus</h3>
-                
-                <div class="bg-gradient-to-br from-yellow-50 to-white p-8 rounded-2xl border border-yellow-300 shadow-md mb-8">
-                    <p class="text-3xl font-bold text-gray-500 mb-6 uppercase tracking-widest text-center">1. Identifying People & Asking Nationality</p>
+            <!-- Direct Grammar Sections -->
+            <div class="space-y-10">
+                <!-- Identifying People & Asking Nationality -->
+                <div class="bg-white p-10 rounded-[32px] shadow-xl border-4 border-[#fef08a]">
+                    <h3 class="text-4xl font-extrabold text-[#854d0e] mb-6 border-b-2 border-yellow-200 pb-3">Identifying People & Asking Nationality</h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left mb-8">
-                        <div class="bg-white p-6 rounded-xl border-2 border-yellow-300">
+                        <div class="bg-yellow-50 p-6 rounded-2xl border-2 border-yellow-300">
                             <p class="text-3xl font-bold text-[#a16207] mb-4">👤 Asking Identity (shéi)</p>
                             <p class="text-4xl font-extrabold text-gray-800 mb-2">Nà shì <span class="text-[#ca8a04]">shéi</span>?</p>
                             <p class="text-2xl text-gray-500 mb-4">(Who is that?)</p>
                             <p class="text-4xl font-extrabold text-gray-800 mb-2">Nà shì wǒmen lǎoshī.</p>
                             <p class="text-2xl text-gray-500">(That is our teacher.)</p>
                         </div>
-                        <div class="bg-white p-6 rounded-xl border-2 border-yellow-300">
+                        <div class="bg-yellow-50 p-6 rounded-2xl border-2 border-yellow-300">
                             <p class="text-3xl font-bold text-[#a16207] mb-4">🌍 Asking Nationality (nǎ)</p>
                             <p class="text-4xl font-extrabold text-gray-800 mb-2">Tā shì <span class="text-[#ca8a04]">nǎ</span> guó rén?</p>
                             <p class="text-2xl text-gray-500 mb-4">(Which country is she from?)</p>
@@ -683,27 +719,28 @@
                         </div>
                     </div>
 
-                    <!-- 5W1H Explanations without Chinese Chars -->
+                    <!-- 5W1H Explanations -->
                     <div class="bg-[#fefce8] p-6 rounded-xl border-l-[8px] border-[#eab308] shadow-sm">
-                        <h4 class="text-3xl font-bold text-[#854d0e] mb-4">🔍 New 5W1H Question Words!</h4>
+                        <h4 class="text-3xl font-bold text-[#854d0e] mb-4">🔍 New 5W1H Question Words</h4>
                         <div class="space-y-4 text-2xl text-gray-800">
                             <p>
                                 <span class="font-extrabold text-[#ca8a04] text-3xl">shéi (WHO):</span> Used to ask about a person's identity.
                             </p>
                             <p>
                                 <span class="font-extrabold text-[#ca8a04] text-3xl">nǎ (WHICH):</span> Used to ask for a selection from a group. <br>
-                                <b class="text-[#a16207]">Important Rule:</b> <span class="bg-yellow-200 px-2 py-1 rounded text-[#854d0e] font-bold">nǎ</span> MUST always be followed by a <b class="text-[#ca8a04]">Measure Word</b> or a <b class="text-[#ca8a04]">Noun</b> (like <b>nǎ guó</b> - which country).
+                                <b class="text-[#a16207]">Important Rule:</b> <span class="bg-yellow-200 px-2 py-1 rounded text-[#854d0e] font-bold">nǎ</span> MUST always be followed by a <b class="text-[#ca8a04]">Measure Word</b> or a <b class="text-[#ca8a04]">Noun</b> (e.g. <b>nǎ guó</b> - which country).
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-[#fefce8] p-8 rounded-2xl border border-yellow-300 mt-8">
-                    <h4 class="text-4xl font-bold text-[#854d0e] mb-6">🌎 Culture Note: Translating Country Names</h4>
+                <!-- Culture Note -->
+                <div class="bg-[#fefce8] p-10 rounded-[32px] shadow-xl border-4 border-yellow-300">
+                    <h3 class="text-4xl font-extrabold text-[#854d0e] mb-6 border-b-2 border-yellow-200 pb-3">Culture Note: Translating Country Names</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                             <p class="text-3xl font-bold text-[#a16207] mb-3">1. Phonetic matching + Flattering Meanings</p>
-                            <p class="text-2xl text-gray-700 mb-2">Many names are transliterated phonetically, but the characters chosen carry flattering or positive literal meanings.</p>
+                            <p class="text-2xl text-gray-700 mb-2">Many country names are transliterated phonetically, but the Chinese characters chosen carry positive literal meanings.</p>
                             <ul class="text-2xl font-bold text-gray-800 space-y-3 mt-4 pl-4 border-l-4 border-[#ca8a04]">
                                 <li>🇺🇸 Měiguó <span class="text-gray-500 font-normal">("Mei" sounds like A-me-ri-ca. Literally: "Beautiful Country")</span></li>
                                 <li>🇬🇧 Yīngguó <span class="text-gray-500 font-normal">("Ying" sounds like Eng-land. Literally: "Heroic Country")</span></li>
@@ -739,33 +776,32 @@
                             <p class="text-2xl text-gray-700">When translating into Chinese, be precise!</p>
                             <ul class="text-2xl text-gray-700 mt-2 space-y-1">
                                 <li>• <b class="text-gray-900">Zhōngguó rén</b> = Nationality (Citizen of China)</li>
-                                <li>• <b class="text-gray-900">Huárén</b> = Ethnicity (e.g., Mǎláixīyà Huárén / Malaysian Chinese)</li>
+                                <li>• <b class="text-gray-900">Huárén</b> = Ethnicity (e.g. Mǎláixīyà Huárén / Malaysian Chinese)</li>
                                 <li>• <b class="text-gray-900">Zhōngwén / Hànyǔ</b> = The Chinese Language</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- shì Grammar Note -->
-                <div class="bg-white p-8 rounded-2xl border-[4px] border-[#ca8a04] mt-8 shadow-md">
-                    <h4 class="text-4xl font-extrabold text-[#854d0e] mb-4">💡 Understanding shì (to be) ➡️ "ialah"</h4>
+                <!-- Understanding shì -->
+                <div class="bg-white p-10 rounded-[32px] shadow-xl border-4 border-[#ca8a04]">
+                    <h3 class="text-4xl font-extrabold text-[#854d0e] mb-4">💡 Understanding shì (to be) ➡️ "ialah"</h3>
                     <p class="text-2xl text-gray-700 leading-relaxed mb-4">
-                        A common mistake is translating the English "am/is/are" directly into "shì". <br>
-                        Instead, think of "shì" as <b class="text-[#a16207]">"ialah"</b> in Malay! If a sentence in Malay doesn't use "ialah" (like describing an adjective), DO NOT use "shì".
+                        A common mistake is translating English "am/is/are" directly into "shì". <br>
+                        Instead, think of "shì" as <b class="text-[#a16207]">"ialah"</b> in Malay! If a sentence in Malay doesn't use "ialah" (such as connecting directly to an adjective), DO NOT use "shì".
                     </p>
-                    <div class="grid grid-cols-2 gap-6 mt-4">
-                        <div class="bg-green-50 p-4 rounded-xl border border-green-200">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                        <div class="bg-green-50 p-6 rounded-xl border border-green-200">
                             <p class="text-xl text-green-700 font-bold mb-2">She is a teacher ➔ Dia ialah guru</p>
                             <p class="text-3xl font-extrabold text-green-900">Tā shì lǎoshī <span class="text-2xl ml-2">✅</span></p>
                         </div>
-                        <div class="bg-red-50 p-4 rounded-xl border border-red-200">
+                        <div class="bg-red-50 p-6 rounded-xl border border-red-200">
                             <p class="text-xl text-red-700 font-bold mb-2">I am busy ➔ Saya sibuk (No ialah)</p>
                             <p class="text-3xl font-extrabold text-gray-800 line-through decoration-red-500 decoration-4">Wǒ shì máng</p>
                             <p class="text-3xl font-extrabold text-red-900 mt-1">Wǒ máng <span class="text-2xl ml-2">✅</span></p>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -775,9 +811,17 @@
                 <h2 class="text-6xl font-extrabold text-[#713f12]">Text 1</h2>
                 <span class="bg-[#fef08a] text-[#854d0e] px-6 py-3 rounded-full text-2xl font-bold shadow-sm">Pg 28</span>
             </div>
+
+            <!-- Dialogue Introduction Card -->
+            <div class="bg-white p-8 rounded-2xl border-l-[10px] border-[#eab308] shadow-md mb-8">
+                <p class="text-2xl text-gray-800 leading-relaxed">
+                    <b class="text-[#a16207]">🎯 Communicative Focus:</b> Identifying people & Asking someone's nationality.<br>
+                    <span class="text-xl text-gray-600 mt-1 block">Ding Libo and his elder brother spot their teacher across the campus, identifying who she is and discussing her nationality.</span>
+                </p>
+            </div>
             
-            <p class="text-[#a16207] mb-8 font-bold text-3xl bg-yellow-100 py-4 px-6 rounded-xl border border-[#fef08a] inline-block shadow-sm">
-                Click any line below to expand its Pinyin. Notice how new vocabulary is highlighted!
+            <p class="text-[#a16207] mb-8 font-bold text-2xl bg-yellow-100 py-3 px-6 rounded-xl border border-[#fef08a] inline-block shadow-sm">
+                Click any line below to expand its Pinyin.
             </p>
 
             <div class="space-y-8">
@@ -855,8 +899,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">nín</td>
                             <td class="p-6 text-gray-700">you (polite form) 🤝</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">nín</span> hǎo</div>
-                                <div>Chén lǎoshī, <span class="vocab-hl text-2xl">nín</span> hǎo!</div>
+                                <div class="mb-2"><span class="vocab-hl">nín</span> hǎo</div>
+                                <div class="theme-example-sentence">Chén lǎoshī, <span class="vocab-hl">nín</span> máng ma?</div>
                             </td>
                         </tr>
                         <tr class="bg-[#fefce8] hover:bg-yellow-100 transition-colors">
@@ -864,8 +908,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">zhè</td>
                             <td class="p-6 text-gray-700">this 👇</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">zhè</span> shì</div>
-                                <div><span class="vocab-hl text-2xl">Zhè</span> shì wǒ péngyou.</div>
+                                <div class="mb-2"><span class="vocab-hl">zhè</span> wèi lǎoshī</div>
+                                <div class="theme-example-sentence"><span class="vocab-hl">Zhè</span> bú shì kāfēi.</div>
                             </td>
                         </tr>
                         <tr class="hover:bg-yellow-50 transition-colors">
@@ -873,14 +917,14 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">tā</td>
                             <td class="p-6 text-gray-700">he, him <span class="inline-block text-4xl ml-2 bg-yellow-100 p-1 rounded-xl">👨</span></td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">tā</span> shì lǎoshī</div>
-                                <div><span class="vocab-hl text-2xl">Tā</span> shì wàiyǔ lǎoshī.</div>
+                                <div class="mb-2"><span class="vocab-hl">tā</span> bàba</div>
+                                <div class="theme-example-sentence"><span class="vocab-hl">Tā</span> shì wàiyǔ lǎoshī.</div>
                             </td>
                         </tr>
                         <!-- Tā Note -->
                         <tr class="bg-yellow-50">
                             <td colspan="4" class="p-4 text-2xl text-center text-gray-700">
-                                <span class="font-bold text-[#ca8a04]">💡 Note:</span> In written Chinese, <b class="text-[#a16207] text-3xl">他</b> (tā) is used for males, but it is also used as a general third-person pronoun for <b class="text-[#a16207]">strangers</b>, when <b class="text-[#a16207]">gender is unknown</b>, or in mixed-gender groups (tāmen).
+                                <span class="font-bold text-[#ca8a04]">💡 Note:</span> In written Chinese, <b class="text-[#a16207] text-3xl">他</b> (tā) is used for males, but it also serves as the default pronoun for <b class="text-[#a16207]">strangers</b>, when <b class="text-[#a16207]">gender is unspecified</b>, or for mixed groups (tāmen).
                             </td>
                         </tr>
                         <tr class="bg-[#fefce8] hover:bg-yellow-100 transition-colors">
@@ -888,8 +932,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">wàiyǔ</td>
                             <td class="p-6 text-gray-700">foreign language 🗣️</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">wàiyǔ</span> lǎoshī</div>
-                                <div>Tā shì <span class="vocab-hl text-2xl">wàiyǔ</span> lǎoshī.</div>
+                                <div class="mb-2">xué <span class="vocab-hl">wàiyǔ</span></div>
+                                <div class="theme-example-sentence">Wǒmen dōu xué <span class="vocab-hl">wàiyǔ</span>.</div>
                                 <div class="mt-2 text-xl text-[#a16207] bg-yellow-100 p-2 rounded inline-block font-bold">* wài (outside/foreign) + yǔ (language)</div>
                             </td>
                         </tr>
@@ -898,8 +942,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">nǐ</td>
                             <td class="p-6 text-gray-700">you</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2"><span class="vocab-hl text-2xl">nǐ</span> hǎo</div>
-                                <div><span class="vocab-hl text-2xl">Nǐ</span> yě shì lǎoshī ma?</div>
+                                <div class="mb-2"><span class="vocab-hl">nǐ</span> péngyou</div>
+                                <div class="theme-example-sentence"><span class="vocab-hl">Nǐ</span> yào kāfēi ma?</div>
                             </td>
                         </tr>
                         <tr class="bg-[#fefce8] hover:bg-yellow-100 transition-colors">
@@ -907,8 +951,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">yīshēng</td>
                             <td class="p-6 text-gray-700">doctor, physician 🩺</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2">shì <span class="vocab-hl text-2xl">yīshēng</span></div>
-                                <div>Wǒ shì <span class="vocab-hl text-2xl">yīshēng</span>.</div>
+                                <div class="mb-2">Lín <span class="vocab-hl">yīshēng</span></div>
+                                <div class="theme-example-sentence">Tā bàba shì <span class="vocab-hl">yīshēng</span>.</div>
                             </td>
                         </tr>
                         <tr class="hover:bg-yellow-50 transition-colors">
@@ -916,8 +960,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">nǎinai</td>
                             <td class="p-6 text-gray-700">grandmother (paternal) 👵</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2">nǐ <span class="vocab-hl text-2xl">nǎinai</span></div>
-                                <div>Zhè shì nǐ <span class="vocab-hl text-2xl">nǎinai</span> ma?</div>
+                                <div class="mb-2">wǒ <span class="vocab-hl">nǎinai</span></div>
+                                <div class="theme-example-sentence">Nǐ <span class="vocab-hl">nǎinai</span> hǎo ma?</div>
                             </td>
                         </tr>
                         <tr class="bg-[#fefce8] hover:bg-yellow-100 transition-colors">
@@ -925,8 +969,8 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">wàipó</td>
                             <td class="p-6 text-gray-700">grandmother (maternal) 👵</td>
                             <td class="p-6 text-gray-600">
-                                <div class="mb-2">wǒ <span class="vocab-hl text-2xl">wàipó</span></div>
-                                <div>Tā shì wǒ <span class="vocab-hl text-2xl">wàipó</span>.</div>
+                                <div class="mb-2">tā <span class="vocab-hl">wàipó</span></div>
+                                <div class="theme-example-sentence"><span class="vocab-hl">Wàipó</span> yě hěn hǎo.</div>
                             </td>
                         </tr>
                         <tr class="hover:bg-yellow-50 transition-colors">
@@ -934,18 +978,17 @@
                             <td class="p-6 font-bold text-4xl text-[#854d0e]">Chén</td>
                             <td class="p-6 text-gray-500 italic text-2xl">surname Chen 📝</td>
                             <td class="p-6 text-gray-600">
-                                <div><span class="vocab-hl text-2xl">Chén</span> lǎoshī</div>
+                                <div class="mb-2"><span class="vocab-hl">Chén</span> yīshēng</div>
+                                <div class="theme-example-sentence"><span class="vocab-hl">Chén</span> lǎoshī shì Zhōngguó rén.</div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Grammar/Culture Section -->
-            <div class="p-10 bg-white rounded-[32px] shadow-xl border-4 border-[#fef08a] mb-12">
-                <h3 class="text-5xl font-extrabold text-[#854d0e] mb-8 border-b-2 border-yellow-200 pb-3">Culture & Grammar Focus</h3>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- Direct Grammar & Culture Topics -->
+            <div class="space-y-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-yellow-50 p-8 rounded-2xl border border-yellow-200 shadow-sm flex flex-col justify-center">
                         <p class="text-3xl font-bold text-[#a16207] mb-4">🙏 The Polite "You" (nín)</p>
                         <p class="text-2xl text-gray-800 leading-relaxed mb-4">
@@ -1015,9 +1058,17 @@
                 <h2 class="text-6xl font-extrabold text-[#713f12]">Text 2</h2>
                 <span class="bg-[#fef08a] text-[#854d0e] px-6 py-3 rounded-full text-2xl font-bold shadow-sm">Pg 29-30</span>
             </div>
+
+            <!-- Dialogue Introduction Card -->
+            <div class="bg-white p-8 rounded-2xl border-l-[10px] border-[#eab308] shadow-md mb-8">
+                <p class="text-2xl text-gray-800 leading-relaxed">
+                    <b class="text-[#a16207]">🎯 Communicative Focus:</b> Introducing people.<br>
+                    <span class="text-xl text-gray-600 mt-1 block">Ding Libo meets Teacher Chen and introduces his family members and companion one by one, practicing respectful titles, professional roles, and maternal family terms.</span>
+                </p>
+            </div>
             
-            <p class="text-[#a16207] mb-8 font-bold text-3xl bg-yellow-100 py-4 px-6 rounded-xl border border-[#fef08a] inline-block shadow-sm">
-                Click any line below to expand its Pinyin. Notice how new vocabulary is highlighted!
+            <p class="text-[#a16207] mb-8 font-bold text-2xl bg-yellow-100 py-3 px-6 rounded-xl border border-[#fef08a] inline-block shadow-sm">
+                Click any line below to expand its Pinyin.
             </p>
 
             <div class="space-y-8">
@@ -1076,7 +1127,7 @@
                     </div>
                     <div class="pinyin-reveal-container">
                         <div class="pinyin-text-line text-5xl text-[#854d0e] font-extrabold tracking-wide pt-6 border-t-2 border-[#fef08a]">
-                            Péngyou: <span class="vocab-hl">Nín</span> hǎo! Wǒ <b class="text-[#ca8a04] px-1 font-extrabold">bú</b> shì lǎoshī, wǒ shì <span class="vocab-hl">yīshēng</span>.
+                            Péngyou: <span class="vocab-hl">Nín</span> hǎo! Wǒ <b class="text-[#b45309]">bú</b> shì lǎoshī, wǒ shì <span class="vocab-hl">yīshēng</span>.
                         </div>
                     </div>
                 </div>
@@ -1100,7 +1151,7 @@
                     </div>
                     <div class="pinyin-reveal-container">
                         <div class="pinyin-text-line text-5xl text-[#854d0e] font-extrabold tracking-wide pt-6 border-t-2 border-[#fef08a]">
-                            Dīng Lìbō: <b class="text-[#ca8a04] px-1 font-extrabold">Bú</b> shì, <span class="vocab-hl">tā</span> shì wǒ <span class="vocab-hl">wàipó</span>.
+                            Dīng Lìbō: <b class="text-[#b45309]">Bú</b> shì, <span class="vocab-hl">tā</span> shì wǒ <span class="vocab-hl">wàipó</span>.
                         </div>
                     </div>
                 </div>
@@ -1470,7 +1521,7 @@
                         </div>
                     </div>
 
-                    <!-- Core Grammar Review Column -->
+                    <!-- Focused Core Grammar Summary Column -->
                     <div class="bg-white/10 p-8 rounded-3xl border border-white/30 shadow-lg flex flex-col justify-start">
                         <h3 class="text-4xl font-extrabold mb-8 text-[#fef08a] text-center border-b-2 border-white/20 pb-4">Core Grammar Summary</h3>
                         
@@ -1521,7 +1572,7 @@
             });
             
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active', 'text-white');
+                btn.classList.remove('active');
             });
 
             const activeSection = document.getElementById(sectionId);
@@ -1531,7 +1582,7 @@
             
             const activeBtn = document.querySelector(`button[onclick="switchTab('${sectionId}')"]`);
             if (activeBtn) {
-                activeBtn.classList.add('active', 'text-white');
+                activeBtn.classList.add('active');
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });

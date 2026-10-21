@@ -117,7 +117,7 @@
         /* Realistic Fluorescent Yellow Highlighter for Dialogue Texts (No Outline / No Border) */
         .pinyin-text-line .vocab-hl {
             background-color: #fde047; /* bright highlighter yellow */
-            color: #713f12; /* high-contrast dark text */
+            color: #713f12; 
             font-weight: 800;
             padding: 0.1em 0.4em;
             border-radius: 4px;
@@ -130,7 +130,7 @@
 
         /* Theme-Colored Example Sentences */
         .theme-example-sentence {
-            color: #854d0e; /* Elegant dark gold/yellow theme */
+            color: #854d0e; 
             font-weight: 600;
         }
         .theme-example-sentence .vocab-hl {
@@ -258,7 +258,7 @@
         
         <!-- Strict Single-Row Nav Bar -->
         <nav class="nav-container max-w-[1700px] mx-auto">
-            <button onclick="switchTab('agenda')" class="nav-btn active">Overview & Roadmap</button>
+            <button onclick="switchTab('agenda')" class="nav-btn active">Lesson Overview</button>
             <button onclick="switchTab('pronunciation')" class="nav-btn">Pronunciation Drills</button>
             <button onclick="switchTab('theme-1')" class="nav-btn">Identity & Nationality</button>
             <button onclick="switchTab('text-1')" class="nav-btn">Text 1</button>
@@ -271,11 +271,11 @@
 
     <main class="px-10 max-w-[1600px] mx-auto">
 
-        <!-- 1. OVERVIEW & ROADMAP -->
+        <!-- 1. LESSON OVERVIEW -->
         <section id="agenda" class="page-section active pb-16">
             <div class="bg-white rounded-[32px] p-12 shadow-xl border-t-[12px] border-[#eab308]">
                 <div class="flex justify-between items-center mb-10">
-                    <h2 class="text-6xl font-extrabold text-[#713f12]">Lesson Overview & Roadmap</h2>
+                    <h2 class="text-6xl font-extrabold text-[#713f12]">Lesson Overview</h2>
                     <span class="bg-[#fef08a] text-[#854d0e] px-6 py-3 rounded-full text-2xl font-bold border-2 border-[#eab308]">Textbook Pg 27-40</span>
                 </div>
                 
@@ -321,7 +321,7 @@
                         <div class="pronunciation-box">zhā</div><div class="pronunciation-box">chā</div><div class="pronunciation-box">shā</div><div class="empty-box"></div>
                         <div class="pronunciation-box">zhī</div><div class="pronunciation-box">chī</div><div class="pronunciation-box">shī</div><div class="pronunciation-box">rī</div>
                         <div class="pronunciation-box">zhē</div><div class="pronunciation-box">chē</div><div class="pronunciation-box">shē</div><div class="pronunciation-box">rēng</div>
-                        <div class="pronunciation-box">zhāi</div><div class="pronunciation-box">chāi</div><div class="pronunciation-box">shāi</div><div class="pronunciation-box">rāng</div>
+                        <div class="pronunciation-box">zhāi</div><div class="pronunciation-box">chāi</div><div class="pronunciation-box">shāi</div><div class="rāng">rāng</div>
                         <div class="pronunciation-box">zhōu</div><div class="pronunciation-box">chōu</div><div class="pronunciation-box">shōu</div><div class="empty-box"></div>
                         <div class="pronunciation-box">zhuō</div><div class="pronunciation-box">chuō</div><div class="pronunciation-box">shuō</div><div class="empty-box"></div>
                         <div class="pronunciation-box">zhuāi</div><div class="pronunciation-box">chuāi</div><div class="pronunciation-box">shuāi</div><div class="empty-box"></div>
@@ -563,13 +563,13 @@
                             <div class="pronunciation-box">gànbu <span class="eng-sub">(cadre)</span></div>
                             <div class="pronunciation-box">nóngmín <span class="eng-sub">(farmer)</span></div>
                         </div>
-                        <!-- Right Column -->
+                        <!-- Right Column (Uniform styling with left column) -->
                         <div class="flex flex-col gap-4">
-                            <div class="pronunciation-box highlighted border-4">Yīngguó <span class="eng-sub">(England)</span></div>
-                            <div class="pronunciation-box highlighted border-4">Déguó <span class="eng-sub">(Germany)</span></div>
-                            <div class="pronunciation-box highlighted border-4">Měiguó <span class="eng-sub">(USA)</span></div>
-                            <div class="pronunciation-box highlighted border-4">Fǎguó <span class="eng-sub">(France)</span></div>
-                            <div class="pronunciation-box highlighted border-4">Rìběn <span class="eng-sub">(Japan)</span></div>
+                            <div class="pronunciation-box">Yīngguó <span class="eng-sub">(England)</span></div>
+                            <div class="pronunciation-box">Déguó <span class="eng-sub">(Germany)</span></div>
+                            <div class="pronunciation-box">Měiguó <span class="eng-sub">(USA)</span></div>
+                            <div class="pronunciation-box">Fǎguó <span class="eng-sub">(France)</span></div>
+                            <div class="pronunciation-box">Rìběn <span class="eng-sub">(Japan)</span></div>
                         </div>
                     </div>
                 </div>
@@ -1021,10 +1021,10 @@
                     </div>
                 </div>
 
-                <!-- Family Tree Table -->
+                <!-- Family Tree Table (Standardized Font Size) -->
                 <div class="bg-[#fefce8] p-8 rounded-2xl border border-yellow-300 shadow-sm">
                     <h4 class="text-4xl font-extrabold text-[#854d0e] mb-4 text-center">👨‍👩‍👧‍👦 Family Members: Paternal vs. Maternal</h4>
-                    <p class="text-2xl text-gray-700 text-center mb-6">Notice how the maternal (mother's) side frequently uses the word <b class="text-[#ca8a04] text-4xl">wài</b> (which literally means "outside").</p>
+                    <p class="text-2xl text-gray-700 text-center mb-6">Notice how the maternal (mother's) side frequently uses the word <b class="text-[#ca8a04]">wài</b> (which literally means "outside").</p>
                     
                     <div class="grid grid-cols-2 gap-8">
                         <div class="bg-white p-6 border-2 border-yellow-200 rounded-xl">
@@ -1039,12 +1039,12 @@
                         <div class="bg-yellow-100 p-6 border-2 border-yellow-300 rounded-xl shadow-inner">
                             <p class="text-3xl font-extrabold text-[#a16207] mb-6 text-center border-b-2 border-yellow-200 pb-2">Mother's Side</p>
                             <ul class="text-3xl font-bold text-[#854d0e] space-y-4 text-center">
-                                <li><span class="text-4xl text-[#ca8a04]">wài</span>gōng <span class="text-2xl text-gray-600 font-normal ml-2">(Mother's father)</span></li>
-                                <li><span class="text-4xl text-[#ca8a04]">wài</span>pó <span class="text-2xl text-gray-600 font-normal ml-2">(Mother's mother)</span></li>
-                                <li><span class="text-4xl text-[#ca8a04]">wài</span>sūn <span class="text-2xl text-gray-600 font-normal ml-2">(Daughter's son)</span></li>
-                                <li><span class="text-4xl text-[#ca8a04]">wài</span>sūnnǚ <span class="text-2xl text-gray-600 font-normal ml-2">(Daughter's daughter)</span></li>
-                                <li><span class="text-4xl text-[#ca8a04]">wài</span>shēng <span class="text-2xl text-gray-600 font-normal ml-2">(Sister's son)</span></li>
-                                <li><span class="text-4xl text-[#ca8a04]">wài</span>shēngnǚ <span class="text-2xl text-gray-600 font-normal ml-2">(Sister's daughter)</span></li>
+                                <li>wàigōng <span class="text-2xl text-gray-600 font-normal ml-2">(Mother's father)</span></li>
+                                <li>wàipó <span class="text-2xl text-gray-600 font-normal ml-2">(Mother's mother)</span></li>
+                                <li>wàisūn <span class="text-2xl text-gray-600 font-normal ml-2">(Daughter's son)</span></li>
+                                <li>wàisūnnǚ <span class="text-2xl text-gray-600 font-normal ml-2">(Daughter's daughter)</span></li>
+                                <li>wàishēng <span class="text-2xl text-gray-600 font-normal ml-2">(Sister's son)</span></li>
+                                <li>wàishēngnǚ <span class="text-2xl text-gray-600 font-normal ml-2">(Sister's daughter)</span></li>
                             </ul>
                         </div>
                     </div>
